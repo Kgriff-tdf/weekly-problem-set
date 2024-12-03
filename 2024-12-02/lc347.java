@@ -13,7 +13,7 @@ class Solution {
         //save the num and frequency in a hashmap
         HashMap<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
-            map.put(i, map.getOrDefault(i,0)+1);
+            map.put(nums[i], map.getOrDefault(nums[i],0)+1);
         }
 
         //create a PriorityQueue of the hashmap key-value pair, with the order from big to small
