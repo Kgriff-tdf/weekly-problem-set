@@ -1,7 +1,7 @@
 // int[] nums;
-// boolean: count >= 2, return true;
+// boolean: count >= 2, return true;n
 // solution: 1) Bruce force: Arrays.sort(); 2) HashSet
-// Time Complexity: O(N); Space Complexity: O(N)
+// Time Complexity: O(n); Space Complexity: O(n)
 
 class Solution {
     public boolean containsDuplicate(int[] nums) {
