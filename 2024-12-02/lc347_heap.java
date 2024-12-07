@@ -3,13 +3,15 @@
 //solution1: max-heap, PQ, HashMap
 //result: Time Complexity: O(n) for hashmap, O(k*logk) for heap; Space Complexity: O(n+k)???
 
-//solution2: Bucket Sort(tbc)
+//solution2: Bucket Sort - i(count) equals to the length of the array; 
+//
 
 import java.util.HashMap;
 import java.util.concurrent.PriorityBlockingQueue;
 
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
+        //solution1:
         //save the num and frequency in a hashmap
         HashMap<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
@@ -19,7 +21,7 @@ class Solution {
         //create a PriorityQueue of the hashmap key-value pair, with the order from big to small
         PriorityQueue<Map.Entry<Integer, Integer>> pq = new PriorityQueue<>((a,b) -> b.getValue() - a.getValue());
 
-        //for loop, get the key of the ones with the value >= k
+        // for loop, get the key of the ones with the value >= k
         for (Map.Entry entry : map.entrySet()) {
             pq.offer(entry);
         }
@@ -31,5 +33,6 @@ class Solution {
         }
 
         return result;
+
     }
 }
