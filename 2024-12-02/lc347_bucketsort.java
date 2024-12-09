@@ -28,17 +28,16 @@ class Solution {
                 list[frequency] = new ArrayList<>();
             } 
             list[frequency].add(key);  
-            
         }
 
        List<Integer> result = new ArrayList<>();
 
         // for (int i = 0; i < Math.min(list.length, k); i++) {//should be backwards!!
-        for (int i = list.length -1; i >= 0 && result.size() < k; i--) { //注意这里需要添加result.size()<k, 确保不会溢出
+        for (int i = list.length -1; i >= 0 && result.size() < k; i--) { //Pay attention: result.size()<k
             if (list[i] != null) {
                 for (int num : list[i]) {
                     result.add(num);
-                
+                    // if (result.size() == k) break; <== this doesn't work becuz it can't break the outer loop!
                 }
             }
         }
@@ -46,7 +45,6 @@ class Solution {
         int[] resultArr = new int[result.size()];
 
         for (int i = 0; i < result.size(); i++) {
-            // for (int i = 0; i <= ; i++) {
             resultArr[i] = result.get(i);
    
         }
