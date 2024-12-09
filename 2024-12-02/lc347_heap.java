@@ -6,8 +6,6 @@
 //solution2: Bucket Sort - i(count) equals to the length of the array; 
 //
 
-import java.util.HashMap;
-import java.util.concurrent.PriorityBlockingQueue;
 
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
