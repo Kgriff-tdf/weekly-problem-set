@@ -1,5 +1,7 @@
-# weekly-problem-set
-Repo that will contain the Software Development, Data Analysis, and Other weekly problem sets
+### My LeetCode Profile
 
-### This week's problem set
-Problem sets are now published in the README.md file inside of `2024-12-02`
+https://leetcode.com/u/Emily8183/
+
+### Progress
+
+`2024-12-02` is completed;
