@@ -2,6 +2,8 @@
  * two strings: s, t
  * goal: to check if they have the same char
  * solution: 1) hashmap; 2) array for a better space complexity
+ * Space complexity: O(n); <= A fixed-size integer array 
+ * Time complexity: O(n); 
  */
 
 public class Solution {
