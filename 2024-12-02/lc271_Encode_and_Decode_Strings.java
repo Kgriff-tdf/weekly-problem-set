@@ -1,5 +1,5 @@
 //encode: Input: ["neet","code","love","you"]
-// 4/neet4/code4/love4/you
+//4/neet4/code4/love4/you
 //decode: loop in the string, loop to i, find the first number before /, save as length
 //premium problem, free on Neetcode: https://neetcode.io/problems/string-encode-and-decode
 

@@ -6,7 +6,7 @@
  * Time complexity: O(n); 
  */
 
-public class Solution {
+public class lc242_valid_anagram {
     public boolean isAnagram(String s, String t) {
         
         //corner cases
@@ -15,7 +15,6 @@ public class Solution {
 
         int[] arr = new int[26];
 
-        for (int i = 0; i < s.length(); i++) {
             char letter = s.charAt(i);
             arr[letter - 'a']++;
         }
