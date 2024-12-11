@@ -4,6 +4,7 @@ solution: stack
 1) if ( [ {, add ) ] } to stack. 
 2) else, .peek to check, if not equal, return false; if equals, pop()
 3) check if the stack.isEmpty();
+4) Time complexity: O(n)；space complexity: O(n) <= since the worst case we will have to add all the element to the stack
 
 e.g. （{}
 stack: )} => ) not empty, return false
