@@ -17,7 +17,6 @@ public class lc242_valid_anagram {
 
             char letter = s.charAt(i);
             arr[letter - 'a']++;
-        }
 
         for (int j = 0; j < t.length(); j++) {
             char letter = t.charAt(j);
