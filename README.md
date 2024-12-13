@@ -1,11 +1,7 @@
-### My LeetCode Profile
+# weekly-problem-set
 
-https://leetcode.com/u/Emily8183/
+Repo that will contain the Software Development, Data Analysis, and Other weekly problem sets
 
-### Notice
+### This week's problem set
 
-The solutions work successfully on leetcode. However, in this repo, the class name doesn't match with the file name.
-
-### Progress
-
-`2024-12-02` is completed;
+Problem sets are now published in the README.md file inside of `2024-12-09`
