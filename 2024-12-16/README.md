@@ -1,4 +1,4 @@
-# December 9th 2024 - Weekly Problem Set
+# December 16th 2024 - Weekly Problem Set
 
 ## For All Skill Tracks - How To Engage With These Problems
 When taking on these problems, you should try to solve them on your own for 15-20 minutes, **but no longer**.
