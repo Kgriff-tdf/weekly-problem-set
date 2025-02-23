@@ -1,0 +1,5 @@
+Problem 1
+Select P.Email
+From Person as P
+Group by P.Email
+Having Count(P.Email) > 1;
