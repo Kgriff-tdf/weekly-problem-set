@@ -3,3 +3,9 @@ Select P.Email
 From Person as P
 Group by P.Email
 Having Count(P.Email) > 1;
+Problem 2
+Select C.Name As Customers
+From Customers As C
+Full Join Orders As O
+On O.CustomerId = C.id
+Where O.Id is null;
