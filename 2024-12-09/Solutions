@@ -9,3 +9,12 @@ From Customers As C
 Full Join Orders As O
 On O.CustomerId = C.id
 Where O.Id is null;
+Problem 3
+Solution gets runtime error after submission I realize that it only works if players have only been 2 times looking into other ways to compare the dates
+Select cast((cast(Count(*) as decimal(4,2))/cast((Select Count(Distinct(player_ID)) From activity) as decimal(4,2))) as decimal(4,2)) as fraction
+from (Select DATEDIFF(day, (Select top(1)event_date from Activity Where Player_id = A.Player_id Order by event_date),
+    (Select top(1)event_date From Activity  Where Player_id = A.Player_id Order by event_date desc)) as diff
+From Activity as A
+Group by A.player_id
+Having DATEDIFF(day, (Select top(1)event_date from Activity Where Player_id = A.Player_id Order by event_date),
+    (Select top(1)event_date From Activity Where Player_id = A.Player_id Order by event_date desc))  = 1) Diff;
