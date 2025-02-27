@@ -1,19 +1,18 @@
-12-02
 Problem 1
-Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+182. Duplicate Emails
 Select P.Email
 From Person as P
 Group by P.Email
 Having Count(P.Email) > 1;
 Problem 2
-
+183. Customers Who Never Order
 Select C.Name As Customers
 From Customers As C
 Full Join Orders As O
 On O.CustomerId = C.id
 Where O.Id is null;
 Problem 3
-
+550. Game Play Analysis IV
 Solution gets runtime error after submission I realize that it only works if players have only been 2 times looking into other ways to compare the dates
 Select cast((cast(Count(*) as decimal(4,2))/cast((Select Count(Distinct(player_ID)) From activity) as decimal(4,2))) as decimal(4,2)) as fraction
 from (Select DATEDIFF(day, (Select top(1)event_date from Activity Where Player_id = A.Player_id Order by event_date),
