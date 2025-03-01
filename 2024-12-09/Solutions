@@ -13,11 +13,24 @@ On O.CustomerId = C.id
 Where O.Id is null;
 Problem 3
 550. Game Play Analysis IV
-Solution gets runtime error after submission I realize that it only works if players have only been 2 times looking into other ways to compare the dates
-Select cast((cast(Count(*) as decimal(4,2))/cast((Select Count(Distinct(player_ID)) From activity) as decimal(4,2))) as decimal(4,2)) as fraction
-from (Select DATEDIFF(day, (Select top(1)event_date from Activity Where Player_id = A.Player_id Order by event_date),
-    (Select top(1)event_date From Activity  Where Player_id = A.Player_id Order by event_date desc)) as diff
-From Activity as A
-Group by A.player_id
-Having DATEDIFF(day, (Select top(1)event_date from Activity Where Player_id = A.Player_id Order by event_date),
-    (Select top(1)event_date From Activity Where Player_id = A.Player_id Order by event_date desc))  = 1) Diff;
+                Solution gets runtime error after submission I realize that it only works if players have only been 2 times looking into other ways to compare the dates
+                Select cast((cast(Count(*) as decimal(4,2))/cast((Select Count(Distinct(player_ID)) From activity) as decimal(4,2))) as decimal(4,2)) as fraction
+                from (Select DATEDIFF(day, (Select top(1)event_date from Activity Where Player_id = A.Player_id Order by event_date),
+                    (Select top(1)event_date From Activity  Where Player_id = A.Player_id Order by event_date desc)) as diff
+                From Activity as A
+                Group by A.player_id
+                Having DATEDIFF(day, (Select top(1)event_date from Activity Where Player_id = A.Player_id Order by event_date),
+                    (Select top(1)event_date From Activity Where Player_id = A.Player_id Order by event_date desc))  = 1) Diff;
+Corrected after checking some solutions and reviewing syntax:
+with first_login As (Select distinct(player_id), min(event_date) as firstdate
+From Activity
+Group by player_id),
+
+consecutive_login As (Select a.player_id, event_date as nextvisit
+From Activity A Join first_login on first_login.player_id = A.player_id 
+and event_date = DateAdd(day,1,first_login.firstdate))
+
+Select Cast((Cast((Count(c.nextvisit)) as decimal(5,2))/Count(f.firstdate)) as decimal(3,2)) as fraction
+From first_login f
+Full Join consecutive_login c
+on f.player_id = c.player_id;
