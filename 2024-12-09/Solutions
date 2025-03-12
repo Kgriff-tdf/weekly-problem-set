@@ -39,3 +39,23 @@ Problem 4.
 With city as (Select I.Pid as Pid, I.tiv_2015 as tiv_2015, I.tiv_2016 as tiv_2016, Concat(I.lat, I.lon) as cityloc  From Insurance As I), distinctcity as (Select C.cityloc as loc, Count(C.cityloc) as numincity From city as C Group by C.cityloc),
 repetevalue as (Select I.tiv_2015 as rvalue, Count(I.tiv_2015) as numofrepete From Insurance As I Group by I.tiv_2015)
 Select Round((Sum(tiv_2016)),2) as tiv_2016 From city as C join repetevalue as RV on RV.rvalue = C.tiv_2015 join distinctcity as DC on DC.loc = C.cityloc Where RV.numofrepete > 1 and DC.numincity = 1;
+
+Problem 5
+
+  Trying to account for all test cases will require a different approach possibly using case statemets
+With DSalary as (Select Distinct(Salary), departmentId From Employee),
+ITSalary as (Select Top(3)Salary as Fsalary From DSalary  Where departmentID = 1 Order by Salary desc),
+SalesSalary as (Select Top(3)Salary as Fsalary From DSalary Where departmentID = 2 Order by Salary desc),
+ID3Salary as (Select Top(3)Salary as Fsalary From DSalary Where departmentID = 3 Order by Salary desc),
+ID4Salary as (Select Top(3)Salary as Fsalary From DSalary Where departmentID = 4 Order by Salary desc),
+ID5Salary as (Select Top(3)Salary as Fsalary From DSalary Where departmentID = 5 Order by Salary desc),
+ID6Salary as (Select Top(3)Salary as Fsalary From DSalary Where departmentID = 6 Order by Salary desc),
+ID7Salary as (Select Top(3)Salary as Fsalary From DSalary Where departmentID = 7 Order by Salary desc),
+ID8Salary as (Select Top(3)Salary as Fsalary From DSalary Where departmentID = 8 Order by Salary desc),
+TopSalary as (Select Fsalary From ITSalary union Select Fsalary From SalesSalary union Select Fsalary From ID3Salary union Select Fsalary From ID4Salary union Select Fsalary From ID5Salary union Select Fsalary From ID6Salary union Select Fsalary From ID7Salary union Select Fsalary From ID8Salary)
+Select D.Name as Department
+, E.Name as Employee
+, E.Salary
+ From Employee As E
+Join Department As D on E.departmentId = D.id
+Join TopSalary As TS on TS.Fsalary = E.Salary
