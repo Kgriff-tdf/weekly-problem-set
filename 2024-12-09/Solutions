@@ -34,3 +34,8 @@ Select Cast((Cast((Count(c.nextvisit)) as decimal(5,2))/Count(f.firstdate)) as d
 From first_login f
 Full Join consecutive_login c
 on f.player_id = c.player_id;
+Problem 4.
+585. Investments in 2016
+With city as (Select I.Pid as Pid, I.tiv_2015 as tiv_2015, I.tiv_2016 as tiv_2016, Concat(I.lat, I.lon) as cityloc  From Insurance As I), distinctcity as (Select C.cityloc as loc, Count(C.cityloc) as numincity From city as C Group by C.cityloc),
+repetevalue as (Select I.tiv_2015 as rvalue, Count(I.tiv_2015) as numofrepete From Insurance As I Group by I.tiv_2015)
+Select Round((Sum(tiv_2016)),2) as tiv_2016 From city as C join repetevalue as RV on RV.rvalue = C.tiv_2015 join distinctcity as DC on DC.loc = C.cityloc Where RV.numofrepete > 1 and DC.numincity = 1;
