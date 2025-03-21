@@ -5,3 +5,10 @@ From Person P
 Left Join [Address] A
 on A.personId = P.personId;
 --Left Join to include all Persons 
+
+181. Employees Earning More Than Their Managers
+Select E.name as Employee
+From Employee E
+Left Join Employee E1
+on E1.Id = E.managerId 
+Where E.Salary > E1.Salary and E.managerId is not null;
