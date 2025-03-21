@@ -24,3 +24,16 @@ Join Department D
 On E.departmentId = D.id
 Where Salary = (Select top(1)E1.Salary From Employee E1 where E1.departmentId = D.id 
                 Order by E1.Salary desc);
+
+Problem 4
+1045. Customers Who Bought All Products
+Select C.Customer_id
+From Customer C
+Join Product P
+On P.product_key = C.product_key
+Group by C.Customer_id
+Having (Select Count(Distinct(C1.product_key)) as numb1
+        From Customer C1
+        Where C.Customer_id = C1.Customer_id)
+        = (Select Count(product_key) as numb2
+        From Product);
