@@ -1,0 +1,7 @@
+Problem 1
+175. Combine Two Tables
+Select P.firstName, P.lastName, A.city, A.state
+From Person P
+Left Join [Address] A
+on A.personId = P.personId;
+--Left Join to include all Persons 
