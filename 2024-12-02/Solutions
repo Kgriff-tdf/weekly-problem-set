@@ -6,9 +6,21 @@ Left Join [Address] A
 on A.personId = P.personId;
 --Left Join to include all Persons 
 
+Problem 2
 181. Employees Earning More Than Their Managers
 Select E.name as Employee
 From Employee E
 Left Join Employee E1
 on E1.Id = E.managerId 
 Where E.Salary > E1.Salary and E.managerId is not null;
+
+Problem 3
+184. Department Highest Salary
+Select D.name as Department
+, E.name as Employee
+, E.Salary
+From Employee E
+Join Department D
+On E.departmentId = D.id
+Where Salary = (Select top(1)E1.Salary From Employee E1 where E1.departmentId = D.id 
+                Order by E1.Salary desc);
