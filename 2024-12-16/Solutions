@@ -1,10 +1,5 @@
 Problem 1.
 584. Find Customer Referee
-sql
-Select [name]
-From Customer
-Where referee_id is null or referee_id <> 2;
-pandas
 import pandas as pd
 
 def find_customer_referee(customer: pd.DataFrame) -> pd.DataFrame: 
@@ -13,13 +8,6 @@ def find_customer_referee(customer: pd.DataFrame) -> pd.DataFrame:
 
 Problem 2.
 595. Big Countries
-sql
-Select [name]
-    , [population]
-    , area
-From World
-Where area >= 3000000 or [population] >= 25000000;
-pandas
 import pandas as pd
 
 def big_countries(world: pd.DataFrame) -> pd.DataFrame:
@@ -29,15 +17,25 @@ def big_countries(world: pd.DataFrame) -> pd.DataFrame:
 Problem 3.
 585. Investments in 2016
 
-With duplicate2015 as (Select tiv_2015 as d2015 From Insurance Group by tiv_2015 Having Count(tiv_2015) > 1),
-includedpid as (Select I.pid as pid From Insurance I Join duplicate2015 Dtiv on Dtiv.d2015 = I.tiv_2015),
-concatedloc as (Select pid as pid, Concat(lat, lon) as loc From Insurance),
-uniqueloc as (Select loc as loc From concatedloc Group by loc Having Count(loc) = 1)
-Select Round((Sum(tiv_2016)), 2) as tiv_2016
-From Insurance I
-Join includedpid IP
-on IP.pid = I.pid
-Join concatedloc CL
-on CL.pid = I.pid
-Join uniqueloc UL
-on UL.loc = CL.loc;
+import pandas as pd
+
+def find_investments(insurance: pd.DataFrame) -> pd.DataFrame:
+    #insurancetable
+    df = insurance[['pid', 'tiv_2015', 'tiv_2016', 'lat', 'lon']]
+    #cast lat and lon as strings
+    df['lat'] = df['lat'].map(str)
+    df['lon'] = df['lon'].map(str)
+    #concatedloc
+    df['loc'] = df['lat'] + df['lon']
+    #uniqueloc 
+    udf = df.drop_duplicates(subset='loc', keep=False) 
+    #duplicate2015
+    # Identify non-unique values
+    non_unique_values2015 = df['tiv_2015'][df['tiv_2015'].duplicated(keep=False)]
+    # Filter the DataFrame to keep only non-unique values
+    df_filtered = udf[udf['tiv_2015'].isin(non_unique_values2015)]
+    final = pd.DataFrame(
+                {"tiv_2016" : [df_filtered['tiv_2016'].sum()]},
+                index = [1])
+
+    return final
