@@ -6,3 +6,10 @@ From Customer
 Where referee_id is null or referee_id <> 2;
 
 Problem 2.
+595. Big Countries
+
+Select [name]
+    , [population]
+    , area
+From World
+Where area >= 3000000 or [population] >= 25000000;
