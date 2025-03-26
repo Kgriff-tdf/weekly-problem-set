@@ -37,3 +37,51 @@ Having (Select Count(Distinct(C1.product_key)) as numb1
         Where C.Customer_id = C1.Customer_id)
         = (Select Count(product_key) as numb2
         From Product);
+
+Problem 5
+601. Human Traffic of Stadium
+First Try Does not correctly identify 3 + consecutive records
+Select S.id
+, S.visit_date
+, S.people
+From Stadium S
+Left Join Stadium S2
+on S2.id = S.id+1
+Left Join Stadium S3
+on S3.id = S2.id+1
+Where S.people >= 100
+and (S2.people >=100 or S2.people is null)
+and (S3.people >=100 or S3.people is null);
+
+A different approach
+
+Declare @@numofrow int
+Set @@numofrow = (Select Count(id) From Stadium);
+With priordate as (Select (SP.id+1) as id, SP.visit_date as visit_date, SP.people as people 
+From Stadium SP),
+priordate2 as (Select (SP.id+2) as id, SP.visit_date as visit_date, SP.people as people 
+From Stadium SP),
+nextdate as (Select (SN.id-1) as id, SN.visit_date as visit_date, SN.people as people 
+From Stadium SN),
+nextdate2 as (Select (SN.id-2) as id, SN.visit_date as visit_date, SN.people as people 
+From Stadium SN)
+Select S.id, S.visit_date, S.people
+From Stadium S
+Left Join priordate PD
+On PD.id = S.id
+Left Join nextdate ND
+On ND.id = S.id
+Left Join priordate2 PD2
+On PD2.id = S.id
+Left Join nextdate2 ND2
+On ND2.id = S.id
+Where (S.people >= 100
+and (PD.people >= 100 or S.id = 1)
+and (ND.people >= 100 or S.id = @@numofrow))
+or (S.people >= 100
+and (PD.people >= 100 or S.id = 1)
+and (PD2.people >= 100 or S.id = 1))
+or (S.people >= 100
+and (ND.people >= 100 or S.id = @@numofrow)
+and (ND2.people >= 100 or S.id = @@numofrow));
+
