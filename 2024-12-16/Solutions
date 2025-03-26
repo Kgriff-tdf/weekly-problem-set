@@ -1,9 +1,15 @@
 Problem 1.
 584. Find Customer Referee
-
+sql
 Select [name]
 From Customer
 Where referee_id is null or referee_id <> 2;
+pandas
+import pandas as pd
+
+def find_customer_referee(customer: pd.DataFrame) -> pd.DataFrame: 
+    notnumber2 = customer[(customer['referee_id'] != 2) | (customer['referee_id'].isnull())][['name']]
+    return notnumber2
 
 Problem 2.
 595. Big Countries
