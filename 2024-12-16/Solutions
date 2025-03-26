@@ -13,3 +13,19 @@ Select [name]
     , area
 From World
 Where area >= 3000000 or [population] >= 25000000;
+
+Problem 3.
+585. Investments in 2016
+
+With duplicate2015 as (Select tiv_2015 as d2015 From Insurance Group by tiv_2015 Having Count(tiv_2015) > 1),
+includedpid as (Select I.pid as pid From Insurance I Join duplicate2015 Dtiv on Dtiv.d2015 = I.tiv_2015),
+concatedloc as (Select pid as pid, Concat(lat, lon) as loc From Insurance),
+uniqueloc as (Select loc as loc From concatedloc Group by loc Having Count(loc) = 1)
+Select Round((Sum(tiv_2016)), 2) as tiv_2016
+From Insurance I
+Join includedpid IP
+on IP.pid = I.pid
+Join concatedloc CL
+on CL.pid = I.pid
+Join uniqueloc UL
+on UL.loc = CL.loc;
