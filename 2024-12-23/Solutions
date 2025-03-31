@@ -31,3 +31,24 @@ def rearrange_products_table(products: pd.DataFrame) -> pd.DataFrame:
     allstores = pd.concat([store12, store3_df])
     allstores = allstores.loc[:, ['product_id', 'store', 'price']]
     return allstores
+
+Problem 3.
+1907. Count Salary Categories
+
+import pandas as pd
+
+def count_salary_categories(accounts: pd.DataFrame) -> pd.DataFrame:
+    df = accounts[['account_id', 'income']]
+    ls_df = df.query('income < 20000')
+    ls_value = ls_df.count().max()
+    avg_df = df.query('20000 <= income <= 50000')
+    avg_value = avg_df.count().max()
+    hs_df = df.query('income > 50000')
+    hs_value = hs_df.count().max()
+    final = {'category': ['High Salary', 'Low Salary', 'Average Salary'],
+            'accounts_count': ['0', '0', '0']}
+    final_df = pd.DataFrame(final)
+    final_df.at[1, 'accounts_count'] = ls_value
+    final_df.at[2, 'accounts_count'] = avg_value
+    final_df.at[0, 'accounts_count'] = hs_value    
+    return final_df
