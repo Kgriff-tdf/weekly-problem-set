@@ -48,3 +48,27 @@ import pandas as pd
 def find_customers(customer: pd.DataFrame, product: pd.DataFrame) -> pd.DataFrame:
     df = customer.drop_duplicates().groupby('customer_id').count().reset_index()
     return df[df.product_key == len(product)][['customer_id']]
+
+Problem 5.
+601. Human Traffic of Stadium
+
+import pandas as pd
+
+def human_traffic(stadium: pd.DataFrame) -> pd.DataFrame:
+    df = stadium[['id', 'visit_date', 'people']]
+    rdf = df[df['people']>=100]
+    lst = list(rdf['id'])
+    count = []
+    z = 0
+    l,r = 0,1
+    while r <= len(lst)-1:
+        count.append(z)
+        if lst[r]-lst[l] != 1:
+            z += 1
+        l +=1
+        r +=1
+    count.append(z)
+    rdf['col'] = count
+    filter_rdf = rdf.groupby('col').filter(lambda x: len(x)>=3)
+    return filter_rdf.iloc[:,:3]
+
