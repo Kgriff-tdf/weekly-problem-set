@@ -1,1 +1,10 @@
+Problem 1.
+1789. Primary Department for Each Employee
 
+import pandas as pd
+
+def find_primary_department(employee: pd.DataFrame) -> pd.DataFrame:
+    primary_df = employee[employee['primary_flag'] == 'Y']
+    filtered_df = employee.groupby('employee_id').filter(lambda x: len(x) == 1)
+    merged_df = pd.concat([primary_df, filtered_df], axis=0) 
+    return merged_df[['employee_id', 'department_id']]
