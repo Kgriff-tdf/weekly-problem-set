@@ -8,3 +8,26 @@ def find_primary_department(employee: pd.DataFrame) -> pd.DataFrame:
     filtered_df = employee.groupby('employee_id').filter(lambda x: len(x) == 1)
     merged_df = pd.concat([primary_df, filtered_df], axis=0) 
     return merged_df[['employee_id', 'department_id']]
+
+Problem 2.
+1795. Rearrange Products Table
+
+import pandas as pd
+
+def rearrange_products_table(products: pd.DataFrame) -> pd.DataFrame:
+    store1_df = products[['product_id', 'store1']]
+    store1_df.columns = ['product_id', 'price']
+    store1_df = store1_df.dropna(subset=['price'])
+    store1_df = store1_df.assign(store = 'store1')
+    store2_df = products[['product_id', 'store2']]
+    store2_df.columns = ['product_id', 'price']
+    store2_df = store2_df.dropna(subset=['price'])
+    store2_df = store2_df.assign(store = 'store2')
+    store3_df = products[['product_id', 'store3']]
+    store3_df.columns = ['product_id', 'price']
+    store3_df = store3_df.dropna(subset=['price'])
+    store3_df = store3_df.assign(store = 'store3')
+    store12 = pd.concat([store1_df, store2_df])
+    allstores = pd.concat([store12, store3_df])
+    allstores = allstores.loc[:, ['product_id', 'store', 'price']]
+    return allstores
