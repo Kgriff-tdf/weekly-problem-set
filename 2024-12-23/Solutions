@@ -52,3 +52,23 @@ def count_salary_categories(accounts: pd.DataFrame) -> pd.DataFrame:
     final_df.at[2, 'accounts_count'] = avg_value
     final_df.at[0, 'accounts_count'] = hs_value    
     return final_df
+
+Problem 4.
+1934. Confirmation Rate
+
+import pandas as pd
+
+def confirmation_rate(signups: pd.DataFrame, confirmations: pd.DataFrame) -> pd.DataFrame:
+    s_df = signups[['user_id']]
+    df = confirmations[['user_id', 'action']]
+    c_df = df[df['action'].str.startswith('con')]
+    c_df = c_df[['user_id', 'action']].value_counts('user_id').reset_index(name='numofc')
+    a_df = df[['user_id', 'action']].value_counts('user_id').reset_index(name='numofa')
+    bmerged_df = pd.merge(s_df, c_df, on='user_id', how='left')
+    fmerged_df = pd.merge(bmerged_df, a_df, on='user_id', how='left')
+    fmerged_df.fillna(0, inplace=True)
+    fmerged_df['confirmation_rate'] = fmerged_df['numofc']/fmerged_df['numofa']
+    fmerged_df['confirmation_rate'] = fmerged_df['confirmation_rate'].round(2)
+    final_df = fmerged_df[['user_id', 'confirmation_rate']]
+    final_df.fillna(0, inplace=True)
+    return final_df
