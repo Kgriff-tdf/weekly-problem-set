@@ -74,3 +74,14 @@ def confirmation_rate(signups: pd.DataFrame, confirmations: pd.DataFrame) -> pd.
     final_df = fmerged_df[['user_id', 'confirmation_rate']]
     final_df.fillna(0, inplace=True)
     return final_df
+
+Problem 5.
+3374. First Letter Capitalization II
+
+import pandas as pd
+
+def capitalize_content(user_content: pd.DataFrame) -> pd.DataFrame:
+    df = user_content[['content_id', 'content_text']]
+    df['converted_text'] = df['content_text'].str.title()
+    df.rename(columns={'content_text': 'original_text'}, inplace=True)
+    return df
